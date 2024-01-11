@@ -16,7 +16,7 @@ jobs:
       - name: "Install dependencies"
         run: "python -m pip install --upgrade pip\npip install -r requirements.txt\n"
       - name: "Deploy to EC2"
-        run: "ssh -o StrictHostKeyChecking=no -i ${{secrets.EC2_SSH_KEY}} ${{secrets.USERNAME}}@${{secrets.HOST_DNS}} 'bash -s' << 'EOF'\n cd flask-app/\n  git pull origin master\n  source venv/bin/activate\n  pip install -r requirements.txt\n  # Additional setup and deployment commands (e.g., database migrations)\n  supervisorctl restart your_flask_app\nEOF\n"
+        run: "ssh -o StrictHostKeyChecking=no -i ${{secrets.EC2_SSH_KEY}} ${{secrets.USERNAME}}@${{secrets.HOST_DNS}} 'bash -s' << 'EOF'\n cd flask-app/\n  git pull origin master\n  source venv/bin/activate\n  # Additional setup and deployment commands (e.g., database migrations)\n  supervisorctl restart your_flask_app\nEOF\n"
         env:
           HOSTNAME: "${{secrets.HOST_DNS}}"
           USER_NAME: "${{secrets.USERNAME}}"
